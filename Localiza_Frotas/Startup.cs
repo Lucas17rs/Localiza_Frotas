@@ -1,3 +1,4 @@
+using Localiza_Frotas_Infra.Singleton;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,11 +32,12 @@ namespace Localiza_Frotas
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Localiza_Frotas", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Localiza_Frotas", Description = "API - Frotas", Version = "v1" });
 
-                var apiPath = Path.Combine(AppContext.BaseDirectory, "Localiza.Frotas.xml");
+                var apiPath = Path.Combine(AppContext.BaseDirectory, "Localiza_Frotas.xml");
                 c.IncludeXmlComments(apiPath);
             });
+            services.AddSingleton<SingletonContainer>();
 
             
         }
@@ -46,8 +48,8 @@ namespace Localiza_Frotas
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Localiza_Frotas v1"));
+               // app.UseSwagger();
+                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Localiza_Frotas v1"));
             }
 
             app.UseSwagger();
