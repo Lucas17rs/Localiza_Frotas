@@ -1,3 +1,5 @@
+using Localiza_Frotas_Domain;
+using Localiza_Frotas_Infra.Repository;
 using Localiza_Frotas_Infra.Singleton;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,6 +40,9 @@ namespace Localiza_Frotas
                 c.IncludeXmlComments(apiPath);
             });
             services.AddSingleton<SingletonContainer>();
+
+            services.AddSingleton<IVeiculoRepository, InMemoryRepository>();
+
 
             
         }
