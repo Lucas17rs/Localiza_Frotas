@@ -13,11 +13,11 @@ namespace Localiza_Frotas.Controllers
     public class VeiculosController : ControllerBase
     {
         private readonly IVeiculoRepository veiculoRepository;
-        //private readonly IVeiculoDetran veiculoDetran;
-        public VeiculosController(IVeiculoRepository repository /*, IVeiculoDetran veiculoDetran*/)
+        private readonly IVeiculoDetran veiculoDetran;
+        public VeiculosController(IVeiculoRepository repository , IVeiculoDetran veiculoDetran)
         {
             this.veiculoRepository = repository;
-            //this.veiculoDetran = veiculoDetran;
+            this.veiculoDetran = veiculoDetran;
         }
 
         // GET: api/<VeiculosController>
@@ -67,6 +67,16 @@ namespace Localiza_Frotas.Controllers
 
             return NoContent();
         }
+
+        // PUT api/<VeiculosController>/5
+        [HttpPut("{id}/vistoria")]
+        public IActionResult Put(Guid id)
+        {
+            veiculoDetran.AgendarVistoriaDetran(id);
+
+            return NoContent();
+        }
+
 
     }//
 }

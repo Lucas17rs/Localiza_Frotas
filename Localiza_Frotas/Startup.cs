@@ -1,4 +1,5 @@
 using Localiza_Frotas_Domain;
+using Localiza_Frotas_Infra.Facade;
 using Localiza_Frotas_Infra.Repository;
 using Localiza_Frotas_Infra.Repository.EF;
 using Localiza_Frotas_Infra.Singleton;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -48,6 +50,11 @@ namespace Localiza_Frotas
 
             services.AddDbContext<FrotaContext>(opt => opt.UseInMemoryDatabase("Frota"));
 
+            services.Configure<DetranOptions>(Configuration.GetSection("DetranOptions"));
+
+            services.AddHttpClient();
+
+            services.AddTransient<IVeiculoDetran, VeiculoDetranFacade>();
 
         }
 
